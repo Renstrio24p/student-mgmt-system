@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "es2019",
+    "moduleDetection": "auto",
+    "module": "commonjs",
+    "baseUrl": "src",
+    "allowImportingTsExtensions": true,
+    "removeComments": true,
+    "noEmit": true,
+    "noEmitOnError": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "allowUnusedLabels": true,
+    "skipLibCheck": true
+  }
+}
