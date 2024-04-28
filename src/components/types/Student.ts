@@ -1,6 +1,6 @@
 
 export type StudentType = {
-    _id: number,
+    _id?: number | number,
     name: string,
     image: string,
     address: string,
@@ -8,6 +8,8 @@ export type StudentType = {
     course: string[],
     date: string,
     desc: string,
+    email: string,
+    password: string,
 }[]
 
 let courseIdCounter = 0;

@@ -1,5 +1,5 @@
-import { Placeholder } from "components/types/Placeholder";
-import { StudentType } from "pages/Students/types/Student";
+import { UserType } from "components/types/Users";
+import { StudentType } from "components/types/Student";
 
 export interface UserData {
     name: string;
@@ -19,7 +19,7 @@ export interface StudentData {
 
 export type Common = {
     student: StudentType
-    user: Placeholder
+    user: UserType
 }
 
 export type StudentState = {
@@ -29,7 +29,7 @@ export type StudentState = {
 }
 
 export type UserState = {
-    userData: Placeholder,
+    userData: UserType,
     status: 'idle' | 'loading' | 'succeeded' | 'failed',
     error: string | null
 }

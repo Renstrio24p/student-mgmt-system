@@ -7,7 +7,8 @@ export const postStudentData = createAsyncThunk(
     async (userData: StudentData) => {
         try {
             const res = await axiosInstance.post('/api/add?type=student', userData);
-            console.log(res.data)
+            alert(`${res.statusText = `${res.data.name} added successfully..`}`);
+            window.location.href = '/dashboard/student/';
             return res.data;
         } catch (error) {
             throw new Error('Error Adding Student Data');
@@ -21,7 +22,8 @@ export const postUserData = createAsyncThunk(
     async (userData: UserData) => {
         try {
             const res = await axiosInstance.post('/api/add?type=users', userData);
-            console.log(res.data)
+            alert(`${res.statusText = `${res.data.name} added successfully..`}`);
+            window.location.href = '/dashboard/users/';
             return res.data;
         } catch (error) {
             throw new Error('Error Adding User Data');

@@ -5,8 +5,12 @@ import { toCapitalized } from "components/tools/toCapitalized";
 
 export default function Cards(DOM: HTMLElement, cards: Common['student' | 'user']): void {
     function renderCards(cardData: (Common['student' | 'user'])): void {
-        const cardsHTML = cardData.map(card => cardTemplate(card));
-        DOM.innerHTML = `<div class='grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 place-content-stretch gap-4'>${cardsHTML.join("")}</div>`;
+        if (cardData.length === 0) {
+            DOM.innerHTML = `<div class='grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 place-content-stretch gap-4'><p>No Data..</p></div>`;
+        } else {
+            const cardsHTML = cardData.map(card => cardTemplate(card));
+            DOM.innerHTML = `<div class='grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 place-content-stretch gap-4'>${cardsHTML.join("")}</div>`;
+        }
     }
 
     function cardTemplate(card: Common['student' | 'user'][number]): string {
@@ -41,7 +45,7 @@ export default function Cards(DOM: HTMLElement, cards: Common['student' | 'user'
         const cardId = (event.target as HTMLElement).getAttribute('data-id');
         if (cardId) {
             const card = cards.flat().find(c => {
-                return (c._id).toString() === cardId;
+                return (c._id!).toString() === cardId;
             });
             if (card) {
                 const modalContainer = document.getElementById(`modal-${card._id}`);
@@ -60,7 +64,7 @@ export default function Cards(DOM: HTMLElement, cards: Common['student' | 'user'
     DOM.innerHTML = `<div class='grid grid-cols-1 gap-4'>${Skeletons(cards.flat().length)}</div>`;
 
     // Render cards
-    renderCards(cards.flat());
+    renderCards(cards.flat() as Common['student' | 'user']);
 
     // Add event listener for details button on each card
     DOM.querySelectorAll('button').forEach(button => {

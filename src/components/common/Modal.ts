@@ -2,15 +2,10 @@ import { Common } from "redux/redux.types";
 import { HTMLModalElement } from "types/Food";
 import store from '../../redux/redux.state.ts';
 import { deleteUserData, deleteStudentData } from '../../redux/redux.delete.ts';
+import EditModal from "./EditModal.ts";
+import { scriptElement } from "utils/purify/purify.ts";
 
 export default function Modal(DOM: HTMLElement, card: Common['student' | 'user'][number]) {
-
-  function displayDeleteSuccess() {
-    const deleteSuccessDiv = document.createElement('div');
-    deleteSuccessDiv.classList.add('absolute', 'bottom-1', 'right-1', 'text-green-500');
-    deleteSuccessDiv.innerHTML = `<p>Data Deleted successfully.</p>`;
-    DOM.appendChild(deleteSuccessDiv);
-  }
 
   DOM.innerHTML = (`
     <div class="modals fixed top-0 left-0 w-full h-[100vh] bg-gradient-to-r from-slate-900 bg-opacity-5 grid place-content-center z-[100]">
@@ -48,11 +43,13 @@ export default function Modal(DOM: HTMLElement, card: Common['student' | 'user']
         </div>
       </div>
     </div>
+    <div id='edit-modal'></div>
   `);
 
   // Close modal when close button is clicked
   const closeButton = DOM.querySelector('.close');
   const closeModal = DOM.querySelector('.modals') as HTMLModalElement;
+  const editBtn = DOM.querySelector('#edit') as HTMLButtonElement;
   const modalDiv = DOM.querySelector('.modal-div') as HTMLModalElement;
 
   if (closeButton) {
@@ -73,13 +70,21 @@ export default function Modal(DOM: HTMLElement, card: Common['student' | 'user']
     deleteButton.addEventListener('click', () => {
       if ('course' in card) {
         store.dispatch(deleteStudentData({ _id: String(card._id) }));
-        displayDeleteSuccess()
       } else {
         store.dispatch(deleteUserData({ _id: String(card._id) }));
-        displayDeleteSuccess();
       }
       Close();
     });
+  }
+
+  // Add event listener to update button
+
+  if (editBtn) {
+    const editModal = DOM.querySelector('#edit-modal') as HTMLElement
+    editBtn.addEventListener('click', () => {
+      editModal.appendChild(scriptElement)
+      EditModal(editModal, card)
+    })
   }
 
   function Close() {

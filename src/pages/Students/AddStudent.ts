@@ -5,38 +5,36 @@ import { postStudentData } from '../../redux/redux.add';
 export default function AddStudent(DOM: HTMLElement) {
     DOM.innerHTML = `
         <div class='w-[full] h-[90vh] bg-slate-400 flex items-center justify-center'>
-            <div class='flex items-center gap-10'>
-                <div>
-                    <img class='rounded-full w-[120px] h-auto my-6' src='' id='previewImage'/>
-                </div>
-                <div>
+            <div class=' w-full flex items-center gap-10'>
+                <div class='w-full m-11'>
                     <h1 class='my-1'>Enroll Student</h1>
-                    <form class='w-[320px] bg-slate-100 p-8 rounded-sm shadow-md flex flex-col gap-0' id="addUserForm">
+                    <form class='w-full bg-slate-100 p-8 rounded-sm shadow-md flex flex-col gap-0 text-[12px] text-slate-700' id="addUserForm">
                         <div class='w-full relative h-[40px]'>
+                            <label class='absolute top-1.5 left-1 text-[12px] text-slate-600  p-0' for="img">Image Link</label>
                             <input class='w-full p-1 outline-none' type='text' name='img' id='image' />
                         </div>
                         <div class='w-full relative h-[40px]'>
-                            <label class='absolute top-1.5 left-1 text-[12px] text-slate-600 bg-white p-0' for="name">Full Name</label>
+                            <label class='absolute top-1.5 left-1 text-[12px] text-slate-600  p-0' for="name">Full Name</label>
                             <input class='w-full p-1 outline-none' type="text" id="name" name="name">
                         </div>
                         <div class='w-full relative h-[40px]'>
-                            <label class='absolute top-1.5 left-1 text-[12px] text-slate-600 bg-white p-0' for="location">Address</label>
+                            <label class='absolute top-1.5 left-1 text-[12px] text-slate-600  p-0' for="location">Address</label>
                             <input class='w-full p-1 outline-none' type="text" id="location" name="location">
                         </div>
                         <div class='w-full relative h-[40px]'>
-                            <label class='absolute top-1.5 left-1 text-[12px] text-slate-600 bg-white p-0' for="location">Tel: </label>
+                            <label class='absolute top-1.5 left-1 text-[12px] text-slate-600  p-0' for="location">Tel: </label>
                             <input class='w-full p-1 outline-none' type="text" id="tel" name="tel">
                         </div>
                         <div class='w-full relative h-[40px]'>
-                            <label class='absolute top-1.5 left-1 text-[12px] text-slate-600 bg-white p-0' for="email">Email</label>
+                            <label class='absolute top-1.5 left-1 text-[12px] text-slate-600  p-0' for="email">Email</label>
                             <input class='w-full p-1 outline-none' type="email" id="email" name="email">
                         </div>
                         <div class='w-full relative'>
-                            <label class='absolute top-1.5 left-1 text-[12px] text-slate-600 bg-white p-0' for="course">Course</label>
+                            <label class='absolute top-1.5 left-1 text-[12px] text-slate-600  p-0' for="course">Course</label>
                             <input class='w-full p-1 mb-2 outline-none' type="text" id="course" name="course">
                         </div>
                         <div class='w-full relative'>
-                            <label class='absolute top-1.5 left-1 text-[12px] text-slate-600 bg-white p-0' for="description">Description</label>
+                            <label class='absolute top-1.5 left-1 text-[12px] text-slate-600  p-0' for="description">Description</label>
                             <textarea rows='5' class='w-full resize-none mb-3 p-1 outline-none transition-all' id='description' name='description'></textarea>
                         </div>
                         <button type="submit" class='w-1/2 bg-slate-600 text-[12px] py-1 text-white rounded-sm outline-none'>Add User</button>
@@ -92,14 +90,14 @@ export default function AddStudent(DOM: HTMLElement) {
 
     form.querySelectorAll('input, textarea').forEach(input => {
         input.addEventListener('focus', () => {
-            input.previousElementSibling?.classList.add('text-[11px]');
-            input.previousElementSibling?.classList.add('top-[-5px]');
+            input.previousElementSibling?.classList.add('text-[9px]');
+            input.previousElementSibling?.classList.add('top-[-7px]');
         });
 
         input.addEventListener('blur', () => {
             if ((input as HTMLInputElement).value === '') {
-                input.previousElementSibling?.classList.remove('text-[11px]');
-                input.previousElementSibling?.classList.remove('top-[-5px]');
+                input.previousElementSibling?.classList.remove('text-[9px]');
+                input.previousElementSibling?.classList.remove('top-[-7px]');
             }
         });
     });
