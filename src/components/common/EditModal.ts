@@ -20,14 +20,14 @@ export default function EditModal(DOM: HTMLElement, card: Common['student' | 'us
         <img class='w-[80px] rounded-full z-10 absolute right-4 top-3' src="${useTSPurifier(card.image)}" alt="${useTSPurifier(card.name)}">
         <div class='z-10 flex flex-col gap-2 mx-2 text-[12px] text-slate-600'>
           <h2 class='mt-7 text-[2em]'>${useTSPurifier(card.name)}</h2>
-          <p class='mb-3'>Registered Date: ${card.date}</p>
+          <p class='mb-1'>Registered Date: ${card.date}</p>
           <p>Image url:</p>
           <input class='p-1' type='text' id='imageInput' value='${card.image}'/>
           <p>Description:</p>
           <textarea rows='5' class=' text-slate-700 resize-none p-1' id='descTextarea'>${useTSPurifier(card.desc)}</textarea>
           ${'role' in card ? (`
               <p>Role : </p>
-              <select id='roleInput' name='role' class='w-full bg-white p-1 text-slate-600 mb-6'>
+              <select id='roleInput' name='role' class='w-full bg-white p-1 text-slate-600'>
                 <option value='${card.role}'>${toCapitalized(card.role)}</option>
                 <option value='admin'>Admin</option>
                 <option value='observer'>Observer</option>
@@ -35,7 +35,7 @@ export default function EditModal(DOM: HTMLElement, card: Common['student' | 'us
                 <option value='teacher'>Teacher</option>
               </select>
           `) : ''}
-          <div>
+          <div class='${'role' in card ? 'mb-6' : ''}'>
             <p>Details</p>
             <div class=' text-slate-700'>
               ${'course' in card ? (`
@@ -61,18 +61,18 @@ export default function EditModal(DOM: HTMLElement, card: Common['student' | 'us
           ${'password' in card ? (`
             <div>
               <p>Password: </p>
-              <input type='password' id='passwordInput' value='${useTSPurifier(String(card.password))}' />
+              <input class='w-full p-1 rounded-sm' type='password' id='passwordInput' value='${useTSPurifier(String(card.password))}' />
             </div>
           `) : ''}
             </div>
             
           </div>
           
-          <div class='mb-8'></div>
+          <div class='${'role' in card ? 'mb-0' : 'mb-6'}'></div>
         </div>
-        <div class='absolute right-1 bottom-[5px] grid place-content-stretch grid-cols-2 text-[12px]'>
-          <button class='p-1 bg-teal-400 rounded-sm mr-1 save-button' id='save' selfdata-id=${card._id}>Save</button>
-          <button class='p-1 bg-red-950 text-white rounded-sm' id='cancel'>Cancel</button>
+        <div class='absolute right-1 bottom-[5px] grid place-content-stretch grid-cols-2 text-[12px] z-50 items-center'>
+          <button class='p-1 bg-teal-400 hover:bg-teal-950 hover:text-white rounded-sm mr-1 save-button' id='save' selfdata-id=${card._id}>Save</button>
+          <button class='p-1 bg-orange-800 hover:bg-orange-950 text-white rounded-sm' id='cancel'>Cancel</button>
         </div>
       </div>
   `))

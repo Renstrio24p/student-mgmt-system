@@ -36,10 +36,10 @@ export default function Modal(DOM: HTMLElement, card: Common['student' | 'user']
           `) : ''}
           <div class='mb-8'></div>
         </div>
-        <div class='absolute right-1 bottom-[5px] grid place-content-stretch grid-cols-3'>
-          <button class='p-1 bg-teal-400 rounded-sm text-[12px] mr-1 edit-button' id='edit' selfdata-id=${card._id}>Edit</button>
-          <button class='p-1 bg-red-600 rounded-sm text-[12px] mr-1 delete-button' id='delete' selfdata-id=${card._id}>Delete</button>
-          <button class='p-1 bg-red-950 text-white rounded-sm text-[12px]'>Cancel</button>
+        <div class='absolute right-1 bottom-[5px] grid place-content-stretch grid-cols-3 z-20'>
+          <button class='p-1 bg-teal-400 rounded-sm text-[12px] mr-1 edit-button hover:bg-teal-950 hover:text-white' id='edit' selfdata-id=${card._id}>Edit</button>
+          <button class='p-1 bg-red-600 rounded-sm text-[12px] mr-1 hover:bg-red-950 hover:text-white delete-button' id='delete' selfdata-id=${card._id}>Delete</button>
+          <button class='p-1 bg-orange-800 text-white rounded-sm text-[12px] hover:bg-orange-950'>Cancel</button>
         </div>
       </div>
     </div>

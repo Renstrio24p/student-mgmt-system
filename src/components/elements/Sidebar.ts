@@ -1,7 +1,6 @@
 import { useTSElements } from "utils/hooks/useTSElements";
 
 export default function Sidebar(DOM: HTMLElement) {
-
     useTSElements(DOM, (`
     <div class='p-3 text-white'>
       <h1 class='flex items-center'>
@@ -23,26 +22,26 @@ export default function Sidebar(DOM: HTMLElement) {
         <h3 class='text-sm'><i class="ri-dashboard-2-fill"></i> Main Menu</h3>
         <hr class='mt-1'>
         <div class='mt-2'>
-            <ul>
-                <li>
+            <ul class='flex flex-col gap-1'>
+                <li class='px-1 rounded-sm hover:bg-teal-950'>
                     <a href='/' class='flex items-center gap-3'>
                         <i class="ri-apps-2-line"></i>
                         <span class='text-[12px]'>Dashboard</span>
                     </a>
                 </li>
-                <li>
+                <li class='px-1 rounded-sm hover:bg-teal-950'>
                     <a href='/dashboard/users/' class='flex items-center gap-3'>
                         <i class="ri-id-card-line"></i>
                         <span class='text-[12px]'>Users</span>
                     </a>
                 </li>
-                <li>
+                <li class='px-1 rounded-sm hover:bg-teal-950'>
                     <a href='/dashboard/courses/' class='flex items-center gap-3'>
                         <i class="ri-building-2-line"></i>
                         <span class='text-[12px]'>Courses</span>
                     </a>
                 </li>
-                <li>
+                <li class='px-1 rounded-sm hover:bg-teal-950'>
                     <a href='/dashboard/students/' class='flex items-center gap-3'>
                         <i class="ri-graduation-cap-line"></i>
                         <span class='text-[12px]'>Students</span>
@@ -53,32 +52,32 @@ export default function Sidebar(DOM: HTMLElement) {
         <h3 class='text-sm mt-1'><i class="ri-folder-settings-fill"></i> Tools</h3>
         <hr class='mt-1'>
         <div class='mt-2'>
-            <ul>
-                <li>
+            <ul class='flex flex-col gap-1'>
+                <li class='px-1 rounded-sm hover:bg-teal-950'>
                     <a href='/dashboard/course/add/' class='flex items-center gap-3'>
                         <i class="ri-file-add-line"></i>
                         <span class='text-[12px]'>Add Course</span>
                     </a>
                 </li>
-                <li>
+                <li class='px-1 rounded-sm hover:bg-teal-950'>
                     <a href='/dashboard/student/add' class='flex items-center gap-3'>
                         <i class="ri-graduation-cap-fill"></i>
                         <span class='text-[12px]'>Enroll Student</span>
                     </a>
                 </li>
-                <li>
+                <li class='px-1 rounded-sm hover:bg-teal-950'>
                     <a href='/dashboard/users/add/' class='flex items-center gap-3'>
                         <i class="ri-id-card-fill"></i>
                         <span class='text-[12px]'>Add User</span>
                     </a>
                 </li>
-                <li>
+                <li class='px-1 rounded-sm hover:bg-teal-950'>
                     <a href='/dashboard/settings/' class='flex items-center gap-3'>
                         <i class="ri-settings-line"></i>
                         <span class='text-[12px]'>Settings</span>
                     </a>
                 </li>
-                <li>
+                <li class='px-1 rounded-sm hover:bg-teal-950'>
                     <button href='/' class='flex items-center gap-3'>
                         <i class="ri-moon-line"></i>
                         <span class='text-[12px]'>Darkmode</span>
@@ -93,6 +92,32 @@ export default function Sidebar(DOM: HTMLElement) {
         </div>
       </div>
     </div>
-  `))
+  `));
 
+    // Get all li elements
+    const liElements = DOM.querySelectorAll('li');
+
+    // Retrieve the selected li index from localStorage
+    const selectedLiIndex = localStorage.getItem('selectedLiIndex');
+
+    // Add click event listener to each li element
+    liElements.forEach((li, index) => {
+        li.addEventListener('click', () => {
+            // Remove the bg-teal-950 class from all li elements
+            liElements.forEach((element) => {
+                element.classList.remove('bg-teal-950');
+            });
+
+            // Add the bg-teal-950 class to the clicked li element
+            li.classList.add('bg-teal-950');
+
+            // Store the index of the clicked li in localStorage
+            localStorage.setItem('selectedLiIndex', index.toString());
+        });
+
+        // Add bg-teal-950 class to the previously selected li
+        if (selectedLiIndex && index.toString() === selectedLiIndex) {
+            li.classList.add('bg-teal-950');
+        }
+    });
 }
