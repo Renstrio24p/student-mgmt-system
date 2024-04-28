@@ -1,7 +1,7 @@
-import { scriptElement } from "utils/purify/purify";
 import Card from "./Card";
 import { CourseType } from "../types/CourseType";
 import { courses } from "../static/Data";
+import { useTSElements } from "utils/hooks/useTSElements";
 
 export default function CourseContainer(DOM: HTMLElement, filter: string) {
 
@@ -11,13 +11,12 @@ export default function CourseContainer(DOM: HTMLElement, filter: string) {
         filteredCourses = courses.filter(course => course.category.toLowerCase() === filter.toLowerCase());
     }
 
-    DOM.innerHTML = (`
+    useTSElements(DOM, (`
        <div>
           <div id='card'></div>
        </div>
-    `);
+    `));
 
     const card = DOM.querySelector('#card') as HTMLElement;
-    card.appendChild(scriptElement);
     Card(card, filteredCourses);
 }

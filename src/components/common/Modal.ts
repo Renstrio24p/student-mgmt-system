@@ -3,11 +3,11 @@ import { HTMLModalElement } from "types/Food";
 import store from '../../redux/redux.state.ts';
 import { deleteUserData, deleteStudentData } from '../../redux/redux.delete.ts';
 import EditModal from "./EditModal.ts";
-import { scriptElement } from "utils/purify/purify.ts";
+import { useTSElements } from "utils/hooks/useTSElements.ts";
 
 export default function Modal(DOM: HTMLElement, card: Common['student' | 'user'][number]) {
 
-  DOM.innerHTML = (`
+  useTSElements(DOM, (`
     <div class="modals fixed top-0 left-0 w-full h-[100vh] bg-gradient-to-r from-slate-900 bg-opacity-5 grid place-content-center z-[100]">
       <div class="modal-div w-[350px] bg-slate-200 rounded-md relative p-3 grid place-content-stretch gap-1 animate-[fadeInUp_1s]">
         <img class='w-full h-full z-0 absolute object-cover opacity-[0.3]' src='https://i.pinimg.com/736x/07/d8/67/07d867d81eab5a0a0c8489d59ed4696c.jpg' alt="bg-image"/>
@@ -44,7 +44,7 @@ export default function Modal(DOM: HTMLElement, card: Common['student' | 'user']
       </div>
     </div>
     <div id='edit-modal'></div>
-  `);
+  `))
 
   // Close modal when close button is clicked
   const closeButton = DOM.querySelector('.close');
@@ -82,7 +82,6 @@ export default function Modal(DOM: HTMLElement, card: Common['student' | 'user']
   if (editBtn) {
     const editModal = DOM.querySelector('#edit-modal') as HTMLElement
     editBtn.addEventListener('click', () => {
-      editModal.appendChild(scriptElement)
       EditModal(editModal, card)
     })
   }

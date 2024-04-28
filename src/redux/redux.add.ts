@@ -8,7 +8,7 @@ export const postStudentData = createAsyncThunk(
         try {
             const res = await axiosInstance.post('/api/add?type=student', userData);
             alert(`${res.statusText = `${res.data.name} added successfully..`}`);
-            window.location.href = '/dashboard/student/';
+            window.location.href = '/dashboard/students/';
             return res.data;
         } catch (error) {
             throw new Error('Error Adding Student Data');

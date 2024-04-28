@@ -1,4 +1,4 @@
-import { scriptElement } from "utils/purify/purify";
+import { useTSElements } from "utils/hooks/useTSElements";
 import { QuizType } from "../types/QuizTypes";
 import CardQuiz from "./CardQuiz";
 
@@ -48,14 +48,13 @@ export default function Quiz(DOM: HTMLElement) {
         },
     ]
 
-    DOM.innerHTML = (`
+    useTSElements(DOM, (`
         <div>
             <div id='quiz' class='w-full'></div>
         </div>
-    `);
+    `));
 
     const quizCard = DOM.querySelector('#quiz') as HTMLElement
-    quizCard.appendChild(scriptElement)
     CardQuiz(quizCard, quizCategory)
 
 }

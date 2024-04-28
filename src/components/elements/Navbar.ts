@@ -1,7 +1,8 @@
 import { HTMLSidebarElement } from "types/Food";
+import { useTSElements } from "utils/hooks/useTSElements";
 
 export default function Navbar(DOM: HTMLElement) {
-   DOM.innerHTML = `
+    useTSElements(DOM, (`
         <div class='flex items-center gap-3'>
             <i class="ri-menu-line cursor-pointer" id='collapse'></i>
             <div>
@@ -19,18 +20,18 @@ export default function Navbar(DOM: HTMLElement) {
             </div>
             <i class="ri-more-line"></i>
         </div>
-    `;
+    `))
 
-   const collapseSidebar = DOM.querySelector('#collapse') as HTMLElement;
-   const sidebarEl = document.getElementById('sidebar') as HTMLSidebarElement;
-   const routerEl = document.getElementById('router') as HTMLElement;
+    const collapseSidebar = DOM.querySelector('#collapse') as HTMLElement;
+    const sidebarEl = document.getElementById('sidebar') as HTMLSidebarElement;
+    const routerEl = document.getElementById('router') as HTMLElement;
 
-   collapseSidebar.addEventListener('click', () => {
-      sidebarEl.classList.toggle('left-[-220px]');
-      if (sidebarEl.classList.contains('left-[-220px]')) {
-         routerEl.classList.remove('ml-[220px]');
-      } else {
-         routerEl.classList.add('ml-[220px]');
-      }
-   });
+    collapseSidebar.addEventListener('click', () => {
+        sidebarEl.classList.toggle('left-[-220px]');
+        if (sidebarEl.classList.contains('left-[-220px]')) {
+            routerEl.classList.remove('ml-[220px]');
+        } else {
+            routerEl.classList.add('ml-[220px]');
+        }
+    });
 }

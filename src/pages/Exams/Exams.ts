@@ -1,5 +1,4 @@
 import Greeting from "components/common/Greeting";
-import { scriptElement } from "utils/purify/purify";
 
 export default function Exams(DOM: HTMLElement) {
 
@@ -11,7 +10,6 @@ export default function Exams(DOM: HTMLElement) {
   `);
 
   const greeting = DOM.querySelector('#greet') as HTMLElement
-  greeting.append(scriptElement)
   Greeting(greeting, "Examination Questionaires.")
 
 }

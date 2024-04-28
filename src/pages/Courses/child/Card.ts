@@ -1,5 +1,6 @@
 import { toCapitalized } from "components/tools/toCapitalized";
 import { CourseType } from "../types/CourseType";
+import { useTSElements } from "utils/hooks/useTSElements";
 
 export default function Card(DOM: HTMLElement, Course: CourseType) {
 
@@ -39,7 +40,7 @@ export default function Card(DOM: HTMLElement, Course: CourseType) {
 
     // Main UI
 
-    DOM.innerHTML = (`
+    useTSElements(DOM, `
         <div class='grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 place-content-stretch gap-4'>
             ${courses}
         </div>

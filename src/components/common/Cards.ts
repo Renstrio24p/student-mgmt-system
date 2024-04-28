@@ -2,6 +2,7 @@ import Modal from "components/common/Modal";
 import { Skeletons } from "./Skeleton";
 import { Common } from "redux/redux.types";
 import { toCapitalized } from "components/tools/toCapitalized";
+import { useTSElements } from "utils/hooks/useTSElements";
 
 export default function Cards(DOM: HTMLElement, cards: Common['student' | 'user']): void {
     function renderCards(cardData: (Common['student' | 'user'])): void {
@@ -14,7 +15,7 @@ export default function Cards(DOM: HTMLElement, cards: Common['student' | 'user'
     }
 
     function cardTemplate(card: Common['student' | 'user'][number]): string {
-        return `
+        return (`
             <div key='${card._id}'>
                 <div class="card p-3 shadow-lg grid place-content-stretch rounded-xl relative overflow-hidden h-full transition duration-400 ease-in hover:scale-110 hover:z-50" id='${card._id}'>
                     <img class='w-full h-[100%] z-0 absolute object-cover opacity-[0.3]' src='https://i.pinimg.com/736x/07/d8/67/07d867d81eab5a0a0c8489d59ed4696c.jpg' alt="bg-image"/>
@@ -38,7 +39,7 @@ export default function Cards(DOM: HTMLElement, cards: Common['student' | 'user'
                 </div>
                 <div id='modal-${card._id}' data-id=${card._id}></div>
             </div>
-        `;
+        `);
     }
 
     function handleDetailsButtonClick(event: MouseEvent): void {
@@ -58,10 +59,11 @@ export default function Cards(DOM: HTMLElement, cards: Common['student' | 'user'
         }
     }
 
-
-
-    // Display skeleton elements while waiting for data
-    DOM.innerHTML = `<div class='grid grid-cols-1 gap-4'>${Skeletons(cards.flat().length)}</div>`;
+    useTSElements(DOM, (`
+        <div class='grid grid-cols-1 gap-4'>
+            ${Skeletons(cards.flat().length)}
+        </div>
+    `));
 
     // Render cards
     renderCards(cards.flat() as Common['student' | 'user']);

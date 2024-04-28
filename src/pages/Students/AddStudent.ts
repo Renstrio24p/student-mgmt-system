@@ -1,9 +1,10 @@
 import { Sanitizer } from 'components/tools/sanitizer.ts';
 import store from '../../redux/redux.state.ts';
 import { postStudentData } from '../../redux/redux.add';
+import { useTSElements } from 'utils/hooks/useTSElements.ts';
 
 export default function AddStudent(DOM: HTMLElement) {
-    DOM.innerHTML = `
+    useTSElements(DOM, (`
         <div class='w-[full] h-[90vh] bg-slate-400 flex items-center justify-center'>
             <div class=' w-full flex items-center gap-10'>
                 <div class='w-full m-11'>
@@ -41,7 +42,7 @@ export default function AddStudent(DOM: HTMLElement) {
                     </form>
                 </div>
             </div>
-        </div>`;
+        </div>`));
 
     const form = DOM.querySelector('#addUserForm') as HTMLFormElement;
     const fileInput = DOM.querySelector('#image') as HTMLInputElement;

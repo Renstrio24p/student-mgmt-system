@@ -1,7 +1,8 @@
+import { useTSElements } from "utils/hooks/useTSElements";
 
 export default function Sidebar(DOM: HTMLElement) {
 
-    DOM.innerHTML = (`
+    useTSElements(DOM, (`
     <div class='p-3 text-white'>
       <h1 class='flex items-center'>
         <i class="ri-box-2-fill"></i>
@@ -59,7 +60,6 @@ export default function Sidebar(DOM: HTMLElement) {
                         <span class='text-[12px]'>Add Course</span>
                     </a>
                 </li>
-               
                 <li>
                     <a href='/dashboard/student/add' class='flex items-center gap-3'>
                         <i class="ri-graduation-cap-fill"></i>
@@ -67,21 +67,9 @@ export default function Sidebar(DOM: HTMLElement) {
                     </a>
                 </li>
                 <li>
-                    <a href='/dashboard/exams/student/add' class='flex items-center gap-3'>
-                        <i class="ri-graduation-cap-line"></i>
-                        <span class='text-[12px]'>Edit Student</span>
-                    </a>
-                </li>
-                <li>
                     <a href='/dashboard/users/add/' class='flex items-center gap-3'>
                         <i class="ri-id-card-fill"></i>
                         <span class='text-[12px]'>Add User</span>
-                    </a>
-                </li>
-                <li>
-                    <a href='/dashboard/users/add/' class='flex items-center gap-3'>
-                        <i class="ri-file-edit-fill"></i>
-                        <span class='text-[12px]'>Edit User</span>
                     </a>
                 </li>
                 <li>
@@ -105,6 +93,6 @@ export default function Sidebar(DOM: HTMLElement) {
         </div>
       </div>
     </div>
-  `);
+  `))
 
 }

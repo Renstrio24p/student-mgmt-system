@@ -5,7 +5,6 @@ import NotFound from "pages/NotFound";
 import Quizzes from "pages/Quizzes/Quizzes";
 import AddStudent from "pages/Students/AddStudent";
 import Student from "pages/Students/Student";
-import AddUser from "pages/Users/AddUser";
 import Users from "pages/Users/Users";
 import { Common } from "redux/redux.types";
 import { TSRouter } from "utils/routes/class/Router.class";
@@ -19,10 +18,6 @@ export const DashboardRouter = (DOM: HTMLElement, data: Common) => {
         {
             path: '/dashboard/users/',
             element: () => Users(DOM, data)
-        },
-        {
-            path: '/dashboard/users/add',
-            element: () => AddUser(DOM)
         },
         {
             path: '/dashboard/student/add',

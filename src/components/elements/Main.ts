@@ -1,6 +1,6 @@
-import { scriptElement } from 'utils/purify/purify';
 import store, { fetchStudentData, fetchUserData } from '../../redux/redux.state'
 import { DashboardRouter } from 'components/router/Dashboard.router';
+import { useTSElements } from 'utils/hooks/useTSElements';
 
 export default function Main(DOM: HTMLElement) {
 
@@ -26,29 +26,21 @@ export default function Main(DOM: HTMLElement) {
     const data = { user, student }
 
     // Main RealDOM UI
-    DOM.innerHTML = `
-    <div id='child'></div>
-  `;
+    useTSElements(DOM, (`
+      <div id='child'></div>
+    `))
 
-    // Initializing Child Router states
     const child = DOM.querySelector('#child') as HTMLElement
-    child.appendChild(scriptElement)
-
-
-    // Pass Redux data state to DashboardRouter
     DashboardRouter(child, data);
   };
 
-  // like useEffect terminate after loads the date for free cache
   const unsubscribe = store.subscribe(handleStoreChange);
 
-  // Initial fetch and render
   fetchData();
   handleStoreChange();
 
   // Cleanup function
   return () => {
     unsubscribe();
-    // Clean up any additional resources if necessary
   };
 }

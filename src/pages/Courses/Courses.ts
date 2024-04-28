@@ -1,10 +1,10 @@
 import Greeting from "components/common/Greeting";
-import { scriptElement } from "utils/purify/purify";
 import CourseContainer from "./child/CourseContainer";
+import { useTSElements } from "utils/hooks/useTSElements";
 
 export default function Courses(DOM: HTMLElement) {
 
-  DOM.innerHTML = (`
+  useTSElements(DOM, (`
     <div class='m-6'>
       <div id='greet'></div>
       <div class='flex items-center justify-between mb-2'>
@@ -20,14 +20,12 @@ export default function Courses(DOM: HTMLElement) {
       </div>
       <div id='course'></div>
     </div>
-  `);
+  `));
 
   const greeting = DOM.querySelector('#greet') as HTMLElement;
-  greeting.append(scriptElement);
   Greeting(greeting, "Here's the list of Courses for today.");
 
   const courseContainer = DOM.querySelector('#course') as HTMLElement;
-  courseContainer.appendChild(scriptElement);
 
   // filtering Course
   const courseFilter = DOM.querySelector('#course-filter') as HTMLSelectElement;

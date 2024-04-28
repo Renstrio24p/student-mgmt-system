@@ -1,5 +1,5 @@
 import { fetchWeatherApi } from 'openmeteo';
-import { scriptElement } from 'utils/purify/purify';
+import { useTSElements } from 'utils/hooks/useTSElements';
 
 export default async function Statistics(DOM: HTMLElement) {
 
@@ -33,7 +33,7 @@ export default async function Statistics(DOM: HTMLElement) {
 
         const currentTemperature = weatherResponse.hourly()?.variables(0)?.valuesArray()?.[0];
 
-        DOM.innerHTML = (`
+        useTSElements(DOM, (`
             <div class='grid gap-1 grid-cols-2 place-content-stretch mt-6 lg:w-[70%] sm:w-full'>
                 <div id='city' class='h-auto overflow-hidden rounded-md relative'>
                     <div class='absolute right-3 top-3 text-[14px] z-20 text-white'>
@@ -75,9 +75,7 @@ export default async function Statistics(DOM: HTMLElement) {
                     </div>
                 </div>
             </div>
-        `);
+        `))
     }
 
-    const cityPhase = DOM.querySelector('#city') as HTMLElement
-    cityPhase.append(scriptElement)
 }
