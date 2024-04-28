@@ -1,10 +1,9 @@
 import { createSlice, configureStore, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { StudentState, UserState } from './redux.types';
 import { updateStudentData, updateUserData } from './redux.update';
 import { postStudentData, postUserData } from './redux.add';
 import { deleteStudentData, deleteUserData } from './redux.delete';
-
 
 // Define initial state
 const initialSliderState: StudentState = {
@@ -40,12 +39,38 @@ export const fetchUserData = createAsyncThunk(
     async () => {
         try {
             const response = await axiosInstance.get('/api/getall?type=users');
-            return response.data.data
+            return response.data.data;
         } catch (error) {
             throw new Error('Error fetching user data');
         }
     }
 );
+
+interface LoginCredentials {
+    email: string;
+    password: string;
+}
+
+export const loginUser = createAsyncThunk(
+    'user/loginUser',
+    async (credentials: LoginCredentials, { rejectWithValue, dispatch }) => {
+        try {
+            const response = await axiosInstance.post('/api/login', credentials);
+            await dispatch(fetchUserData());
+            return response.data;
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                if (error.response) {
+                    return rejectWithValue(error.response.data);
+                } else if (error.request) {
+                    return rejectWithValue({ message: 'No response from server' });
+                }
+            }
+            return rejectWithValue({ message: 'Request failed' });
+        }
+    }
+);
+
 
 const updateSlice = createSlice({
     name: 'update',
@@ -144,6 +169,7 @@ const studentSlice = createSlice({
 
 
 // Create a user slice
+// Create a user slice
 const userSlice = createSlice({
     name: 'user',
     initialState: initialUserState,
@@ -170,9 +196,21 @@ const userSlice = createSlice({
             .addCase(postUserData.rejected, (state, action) => {
                 state.status = 'failed';
                 state.error = action.error.message ?? null;
+            })
+            .addCase(loginUser.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(loginUser.fulfilled, (state, action) => {
+                state.status = 'succeeded';
+                state.userData = action.payload.userData;
+            })
+            .addCase(loginUser.rejected, (state, action) => {
+                state.status = 'failed';
+                state.error = (action.payload as AxiosError).message || 'Unknown error';
             });
     },
 });
+
 
 // Export actions and reducers
 export const { } = studentSlice.actions;
@@ -180,8 +218,7 @@ export const { } = userSlice.actions;
 export const { } = deleteSlice.actions;
 export const { } = updateSlice.actions;
 
-
-
+// Combine reducers and export the store
 export default configureStore({
     reducer: {
         student: studentSlice.reducer,

@@ -1,9 +1,10 @@
 export type UserType = {
-    _id?: number | string,
+    isLoggedIn: string;
+    _id: number | string,
     name: string,
     image: string,
     desc: string,
-    email?: string,
+    email: string,
     password?: string,
     date: string,
     address: string,
