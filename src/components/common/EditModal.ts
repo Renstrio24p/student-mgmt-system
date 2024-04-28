@@ -1,6 +1,7 @@
 import { updateStudentData, updateUserData } from "redux/redux.update";
 import { Common } from "redux/redux.types";
 import store from '../../redux/redux.state'
+import * as bcrypt from 'bcrypt-ts'
 import { HTMLModalElement } from "types/Food";
 import { UserType } from "components/types/Users";
 import { StudentType } from "components/types/Student";
@@ -145,8 +146,14 @@ export default function EditModal(DOM: HTMLElement, card: Common['student' | 'us
   });
 
   if ('password' in card) {
-    updatedPassword.addEventListener('input', () => {
+    updatedPassword.addEventListener('input', async () => {
       updatePassword = updatedPassword.value;
+      try {
+        const hashedPassword = await bcrypt.hash(updatePassword, 10);
+        updatePassword = hashedPassword;
+      } catch (error) {
+        console.error('Error hashing password:', error);
+      }
     });
   }
 

@@ -9,7 +9,10 @@ export default function Cards(DOM: HTMLElement, cards: Common['student' | 'user'
         if (cardData.length === 0) {
             DOM.innerHTML = `<div class='grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 place-content-stretch gap-4'><p>No Data..</p></div>`;
         } else {
-            const cardsHTML = cardData.map(card => cardTemplate(card));
+            const filterCardNoAdmin = cardData.filter(card => {
+                return !('role' in card && card.role === 'superadmin');
+            });
+            const cardsHTML = filterCardNoAdmin.map(card => cardTemplate(card));
             DOM.innerHTML = `<div class='grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 place-content-stretch gap-4'>${cardsHTML.join("")}</div>`;
         }
     }

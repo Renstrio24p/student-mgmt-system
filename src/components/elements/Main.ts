@@ -1,46 +1,21 @@
-import store, { fetchStudentData, fetchUserData } from '../../redux/redux.state'
 import { DashboardRouter } from 'components/router/Dashboard.router';
+import { Common } from 'redux/redux.types';
 import { useTSElements } from 'utils/hooks/useTSElements';
 
-export default function Main(DOM: HTMLElement) {
+export default function Main(DOM: HTMLElement, data: Common, card: Common['user']) {
 
-  // get data from redux state 
+  const loggedInUserEmail = localStorage.getItem('email');
 
-  const fetchData = async () => {
-    try {
-      await store.dispatch(fetchStudentData());
-      await store.dispatch(fetchUserData());
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
+  const loggedInUser = card.find(user => user.email === loggedInUserEmail);
 
-  // configuring store from redux toolkit
+  const dataspecific = { user: loggedInUser };
 
-  const handleStoreChange = () => {
-    const state = store.getState();
-
-    const user = state.user.userData
-    const student = state.student.studentData
-
-    const data = { user, student }
-
-    // Main RealDOM UI
-    useTSElements(DOM, (`
+  // Main RealDOM UI
+  useTSElements(DOM, (`
       <div id='child'></div>
     `))
 
-    const child = DOM.querySelector('#child') as HTMLElement
-    DashboardRouter(child, data);
-  };
+  const child = DOM.querySelector('#child') as HTMLElement
+  DashboardRouter(child, data, dataspecific.user!);
 
-  const unsubscribe = store.subscribe(handleStoreChange);
-
-  fetchData();
-  handleStoreChange();
-
-  // Cleanup function
-  return () => {
-    unsubscribe();
-  };
 }
