@@ -4,6 +4,7 @@ import { StudentState, UserState } from './redux.types';
 import { updateStudentData, updateUserData } from './redux.update';
 import { postStudentData, postUserData } from './redux.add';
 import { deleteStudentData, deleteUserData } from './redux.delete';
+import { loginUser } from './redux.auth';
 
 // Define initial state
 const initialSliderState: StudentState = {
@@ -45,32 +46,6 @@ export const fetchUserData = createAsyncThunk(
         }
     }
 );
-
-interface LoginCredentials {
-    email: string;
-    password: string;
-}
-
-export const loginUser = createAsyncThunk(
-    'user/loginUser',
-    async (credentials: LoginCredentials, { rejectWithValue, dispatch }) => {
-        try {
-            const response = await axiosInstance.post('/api/login', credentials);
-            await dispatch(fetchUserData());
-            return response.data;
-        } catch (error) {
-            if (axios.isAxiosError(error)) {
-                if (error.response) {
-                    return rejectWithValue(error.response.data);
-                } else if (error.request) {
-                    return rejectWithValue({ message: 'No response from server' });
-                }
-            }
-            return rejectWithValue({ message: 'Request failed' });
-        }
-    }
-);
-
 
 const updateSlice = createSlice({
     name: 'update',

@@ -1,10 +1,12 @@
+import { useTSElements } from "utils/hooks/useTSElements";
 
 export default function Footer(DOM: HTMLElement) {
-
-  DOM.innerHTML = (`
+  useTSElements(
+    DOM,
+    /*html*/ `
     <div>
       <h1>Footer</h1>
     </div>
-  `);
-
+  `
+  );
 }

@@ -1,9 +1,9 @@
 import DOMPurify from 'dompurify';
 
 export const useTSElements = (htmlElement: HTMLElement, element: string) => {
-    const sanitizedContent = DOMPurify.sanitize(element);
+    const sanitizedContent = DOMPurify.sanitize(/*html*/element);
 
-    while (htmlElement.innerHTML !== sanitizedContent) {
-        htmlElement.innerHTML = sanitizedContent;
+    if (htmlElement.innerHTML !== sanitizedContent) {
+        return htmlElement.innerHTML = sanitizedContent;
     }
 };

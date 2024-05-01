@@ -1,20 +1,19 @@
 import Statistics from "components/sections/Statistics";
 import Welcome from "components/sections/Welcome";
+import { useTSComponent } from "utils/hooks/useTSComponent";
 import { useTSElements } from "utils/hooks/useTSElements";
 
 // Menu Component Parent Section
 
 export default function Menu(DOM: HTMLElement) {
-
-  useTSElements(DOM, (`
+  useTSElements(
+    DOM,
+    /*html*/ `
       <section id='welcome' class='m-6'></section>
       <section id='statistics' class='m-6'></section>
-  `));
+  `
+  );
 
-  const welcomeSection = DOM.querySelector('#welcome') as HTMLElement
-  Welcome(welcomeSection)
-
-  const statisticsSection = DOM.querySelector('#statistics') as HTMLElement
-  Statistics(statisticsSection)
-
+  useTSComponent("welcome", DOM, Welcome);
+  useTSComponent("statistics", DOM, Statistics);
 }

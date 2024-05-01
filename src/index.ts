@@ -1,7 +1,7 @@
-import Start from "./Start"
-import './index.css'
-import 'remixicon/fonts/remixicon.css'
-import 'animate.css'
+import Start from "./Start";
+import "./index.css";
+import "remixicon/fonts/remixicon.css";
+import "animate.css";
+import { useInitialDOM } from "utils/hooks/useIntialDOM";
 
-const DOM = document.querySelector('#app') as HTMLElement
-Start(DOM)
+useInitialDOM("app", Start);

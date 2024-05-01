@@ -3,7 +3,7 @@
     "target": "es2020",
     "moduleDetection": "auto",
     "module": "commonjs",
-    "baseUrl": "src",
+    "baseUrl": "./src",
     "allowImportingTsExtensions": true,
     "removeComments": true,
     "noEmit": true,

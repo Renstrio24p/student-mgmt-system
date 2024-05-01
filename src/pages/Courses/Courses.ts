@@ -1,10 +1,14 @@
 import Greeting from "components/common/Greeting";
 import CourseContainer from "./child/CourseContainer";
 import { useTSElements } from "utils/hooks/useTSElements";
+import { useTSComponent } from "utils/hooks/useTSComponent";
+import { useTSEvent } from "utils/hooks/useTSEvent";
+import { useTSInput } from "utils/hooks/useTSInput";
 
 export default function Courses(DOM: HTMLElement) {
-
-  useTSElements(DOM, (`
+  useTSElements(
+    DOM,
+    /*html*/ `
     <div class='m-6'>
       <div id='greet'></div>
       <div class='flex items-center justify-between mb-2'>
@@ -19,19 +23,26 @@ export default function Courses(DOM: HTMLElement) {
         </select>
       </div>
       <div id='course'></div>
-    </div>
-  `));
+    </div>`
+  );
 
-  const greeting = DOM.querySelector('#greet') as HTMLElement;
-  Greeting(greeting, "Here's the list of Courses for today.");
-
-  const courseContainer = DOM.querySelector('#course') as HTMLElement;
+  useTSComponent(
+    "greet",
+    DOM,
+    Greeting,
+    "Here's the list of Courses for today."
+  );
 
   // filtering Course
-  const courseFilter = DOM.querySelector('#course-filter') as HTMLSelectElement;
-  courseFilter.addEventListener('change', () => {
-    CourseContainer(courseContainer, courseFilter.value);
+
+  useTSEvent("course-filter", "change", () => {
+    useTSComponent(
+      "course",
+      DOM,
+      CourseContainer,
+      useTSInput("course-filter", "select")
+    );
   });
 
-  CourseContainer(courseContainer, 'all');
+  useTSComponent("course", DOM, CourseContainer, "all");
 }

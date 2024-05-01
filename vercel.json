@@ -28,11 +28,6 @@
             ]
         }
     ],
-    "version": 2,
-    "builds": [
-        {
-            "src": "dist",
-            "use": "@vercel/static-build"
-        }
-    ]
+    "outputDirectory": "dist",
+    "version": 2
 }
